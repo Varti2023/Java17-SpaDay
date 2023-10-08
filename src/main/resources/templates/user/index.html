@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link href="../static/css/styles.css" th:href="@{css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<p th:text = "'Welcome '+ ${user.username} + '!'"></p>
+<a th:href="@{/}">Select Your spa services here!</a>
+<h2>Users</h2>
+<th:block th:each="someUser : ${users}">
+    <a th:href="@{'/user/details/' + ${someUser.id}}"><p th:text = "${someUser.username}"></p></a>
+</th:block>
+</body>
+</html>
