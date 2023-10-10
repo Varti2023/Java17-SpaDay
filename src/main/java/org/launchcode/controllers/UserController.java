@@ -1,36 +1,35 @@
 package org.launchcode.controllers;
 
+import jakarta.validation.Valid;
 import org.launchcode.controllers.models.User;
 import org.launchcode.data.UserData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.validation.Errors;
 @Controller
 @RequestMapping("user")
 public class UserController {
 
     @GetMapping("/add")
-    public String displayAddUserForm(){
+    public String displayAddUserForm(Model model){
+        model.addAttribute(new User());
         return "user/add";
     }
 
 
     @PostMapping("")
-    public String processAddUserForm(Model model, @ModelAttribute User user, String verify) {
+    public String processAddUserForm(@ModelAttribute @Valid User user, Errors errors) {
+
         // add form submission handling code here
 
-            if(!user.getPassword().equals(verify))
-            {
-                model.addAttribute("username",user.getUsername());
-                model.addAttribute("email",user.getEmail());
-                model.addAttribute("error","Password does not match!");
-                return "/user/add";
-            }
-            UserData.add(user);
-            model.addAttribute("user",user);
-            model.addAttribute("users", UserData.getAll());
-        return "/user/index";
+        if (errors.hasErrors()) {
+            return "user/add";
+        } else {
+            return "user/index";
+
+        }
+
     }
 
         @GetMapping("/details/{id}")
