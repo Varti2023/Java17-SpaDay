@@ -17,21 +17,15 @@ public class User {
 
     @NotNull(message = "Passwords do not match.")
     private String verifyPassword;
-
-
-    private static int nextId =1;
-    private final int id;
-
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.id = nextId;
-        nextId++;
+
     }
 
-//    public User() {
-//    }
+    public User() {
+    }
 
 
     private void checkPassword() {
@@ -39,11 +33,6 @@ public class User {
             this.verifyPassword = null;
         }
     }
-
-    public int getId() {
-        return id;
-    }
-
     public String getEmail() {
         return email;
     }
